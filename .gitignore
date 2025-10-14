@@ -43,6 +43,9 @@ uploads/
 *.huff
 *_codes.json
 
+# Large example files
+example_files/big_100mb.txt
+
 # Logs
 *.log
 
