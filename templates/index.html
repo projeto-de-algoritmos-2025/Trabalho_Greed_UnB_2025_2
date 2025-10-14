@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huffman Compression - Universidade de Brasília</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Huffman Compression Algorithm</h1>
+            <p class="subtitle">Universidade de Brasília - File Compression Tool</p>
+        </header>
+
+        <!-- Upload Section -->
+        <section id="upload-section" class="section">
+            <div class="mode-selector">
+                <button id="compress-mode-btn" class="mode-btn active">Compress Files</button>
+                <button id="decode-mode-btn" class="mode-btn">Decode Files</button>
+            </div>
+
+            <!-- Compress Mode -->
+            <div id="compress-mode" class="upload-box">
+                <h2>Upload Text Files to Compress</h2>
+                <input type="file" id="file-input" accept=".txt" multiple>
+                <label for="file-input" class="file-label">
+                    <span class="file-icon">📁</span>
+                    <span>Click to select .txt files</span>
+                </label>
+                <div id="file-list"></div>
+                <div id="file-size-info"></div>
+                <button id="compress-btn" class="btn btn-primary" disabled>Compress Files</button>
+            </div>
+
+            <!-- Decode Mode -->
+            <div id="decode-mode" class="upload-box hidden">
+                <h2>Upload Compressed Files to Decode</h2>
+                <input type="file" id="decode-upload-input" accept=".huff" multiple style="display: none;">
+                <label for="decode-upload-input" class="file-label">
+                    <span class="file-icon">📦</span>
+                    <span>Click to select .huff files (multiple)</span>
+                </label>
+                <div id="decode-upload-info"></div>
+                <button id="decode-upload-btn" class="btn btn-primary" disabled>Decode Files</button>
+            </div>
+        </section>
+
+        <!-- Loading Section -->
+        <section id="loading-section" class="section hidden">
+            <div class="loading-box">
+                <div class="spinner"></div>
+                <p>Compressing files...</p>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section id="results-section" class="section hidden">
+            <h2>Compression Results</h2>
+
+            <!-- Summary -->
+            <div class="summary-box">
+                <div class="summary-item">
+                    <span class="label">Original Size:</span>
+                    <span id="original-size" class="value">0 bytes</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Compressed Size:</span>
+                    <span id="compressed-size" class="value">0 bytes</span>
+                </div>
+                <div class="summary-item">
+                    <span class="label">Compression Ratio:</span>
+                    <span id="compression-ratio" class="value">0%</span>
+                </div>
+            </div>
+
+            <!-- Individual File Results -->
+            <div id="file-results"></div>
+
+            <!-- Huffman Tree Visualization -->
+            <div class="tree-section">
+                <h3>Huffman Tree Visualization</h3>
+                <div id="tree-container"></div>
+            </div>
+
+            <!-- Codes Table -->
+            <div class="codes-section">
+                <h3>Character Encoding Table</h3>
+                <div id="codes-table"></div>
+            </div>
+
+            <!-- Decode Section -->
+            <div class="decode-section">
+                <h3>Decode Compressed Data</h3>
+                <div class="decode-options">
+                    <div class="decode-option">
+                        <h4>Option 1: Upload Compressed Files</h4>
+                        <input type="file" id="decode-file-input" accept=".huff" multiple style="display: none;">
+                        <label for="decode-file-input" class="file-upload-label">
+                            <span>📄 Upload .huff files (multiple)</span>
+                        </label>
+                        <div id="decode-file-name"></div>
+                    </div>
+                    <div class="decode-option">
+                        <h4>Option 2: Paste Encoded Data</h4>
+                        <textarea id="encoded-input" placeholder="Paste encoded binary data here..."></textarea>
+                    </div>
+                </div>
+                <button id="decode-btn" class="btn btn-secondary">Decode</button>
+                <div id="decoded-output"></div>
+            </div>
+
+            <button id="new-compression-btn" class="btn btn-primary">Compress New Files</button>
+        </section>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
